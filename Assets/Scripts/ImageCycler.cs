@@ -10,6 +10,7 @@ public class ImageCycler : MonoBehaviour
     public Sprite[] images; //frames desired
     public Collider[] triggerCollider;
 
+    public DrillStart drill;
     private int[] quadrant1 = { 1, 10, 17, 20 }; 
     private int[] quadrant4 = { 5, 8, 13, 22 };
     private int[] quadrant2 = { 2, 11, 16, 19 };
@@ -40,15 +41,11 @@ public class ImageCycler : MonoBehaviour
                 timerRunning = false;
                 Debug.Log("Timer end");
                 NextImage();
+                timeRemaining = 1f;
             }
         }
 
     }
-        
-
-    
-
-    
 
     public void NextImage()
     {
@@ -80,7 +77,11 @@ public class ImageCycler : MonoBehaviour
         if (currentIndex % 3 == 0)
            timerRunning = true;
         if (currentIndex >= images.Length)
+        {
             currentIndex = 0;// back to beginning
+            drill.DrillEnd();
+        }
+            
         targetImage.sprite = images[currentIndex];
 
         //enables next collider
