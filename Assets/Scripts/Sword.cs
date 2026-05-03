@@ -11,7 +11,7 @@ public class Sword : MonoBehaviour
     private Vector3 lastTipPos;
     private Vector3 tipVelocity;
 
-    [SerializeField] float minSpeed = 0.05f;
+    [SerializeField] float minSpeed = 0.05a f;
     [SerializeField] float minAlignment = 0.7f;
     [SerializeField] float cooldown = 0.1f;
 
@@ -125,58 +125,4 @@ public class Sword : MonoBehaviour
         return surfaceAlignment > 0.3f;
     }
 
-    /*
-    void TryHit(Collider other)
-    {
-        // Prevent spamming hits every frame
-        if (Time.time - lastHitTime < cooldown) return;
-
-        float speed = tipVelocity.magnitude;
-        if (speed < minSpeed) return;
-
-        Vector3 swingDir = tipVelocity.normalized;
-        Vector3 edgeDir = EdgeDirection.normalized;
-
-        // How well is the blade aligned with motion? Which blade, forward or back? | +1 -> front edge | -1 -> back edge | 0 -> flat
-        float rawAlignment = Vector3.Dot(swingDir, edgeDir);
-        float alignment = Mathf.Abs(rawAlignment);
-
-        // Optional: get surface normal for better filtering
-        Vector3 contactPoint = other.ClosestPoint(tip.position);
-        Vector3 toBlade = (tip.position - contactPoint).normalized;
-
-        float surfaceAlignment = Vector3.Dot(swingDir, -toBlade);
-        bool isBackEdge = rawAlignment < 0f;
-
-        // ---- Decision ----
-        if (alignment > minAlignment && surfaceAlignment > 0.3f)
-        {
-           
-
-            if (isBackEdge)
-            {
-                Debug.Log("BACK EDGE CUT");
-                ScoreManager.Instance.backHit();
-                lastHitType = -1;
-            }
-            else
-            {
-                Debug.Log("FRONT EDGE CUT");
-                ScoreManager.Instance.frontHit();
-                lastHitType = 1;
-            }
-
-            
-            lastHitTime = Time.time;
-        }
-        else
-        {
-            Debug.Log($"BAD HIT (flat or weak) align={alignment:F2}");
-            ScoreManager.Instance.backHit();
-            other.SendMessage("OnBluntHit", speed, SendMessageOptions.DontRequireReceiver);
-            lastHitTime = Time.time;
-            lastHitType = 0;
-        }
-    }
-    */
 }
